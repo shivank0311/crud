@@ -22,6 +22,8 @@ app.get("/",(req, res) => {
    const sql = "SELECT * FROM employee";
    db.query(sql, (err,data) => {
     if(err) return res.json("Error");
+
+    console.log(`Data is === ${data}`);
     return res.json(data);
    });
 });

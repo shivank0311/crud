@@ -9,18 +9,17 @@ function Employee() {
     useEffect(()=> {
         axios.get('http://localhost:8081/',)
         .then(res => setEmployee(res.data))
-        
         .catch(err => console.log(err));
     }, []);
 
-    const handleDelete = async(id) => {
+    const handleDelete = async (id) => {
         try{
             await axios.delete('http://localhost:8081/employee/'+id);
             window.location.reload();
         }catch(err){
-            console.log(err);
+            alert(`Error:: ${err.message}`);
         }
-}
+    }
     
   return (
     <div className='d-flex vh-100 bg-primary justify-content-center align-items-center'>
@@ -37,10 +36,8 @@ function Employee() {
                 <tbody>
                     {
                        
-                        employee.map((data, index) => (
-                            
+                       employee.length && employee.map((data, index) => (
                             <tr key={index}>
-                                
                                 <td>{data.Name}</td>
                                 <td>{data.Email}</td>
                                 <td>
