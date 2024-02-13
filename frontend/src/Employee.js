@@ -38,11 +38,11 @@ function Employee() {
                        
                        employee.length && employee.map((data, index) => (
                             <tr key={index}>
-                                <td>{data.Name}</td>
-                                <td>{data.Email}</td>
+                                <td>{data.name}</td>
+                                <td>{data.email}</td>
                                 <td>
-                                    <Link to={`update/${data.ID}`} className="btn btn-primary">Update</Link>
-                                    <button className="btn btn-danger ms-2" onClick={e => handleDelete(data.ID)}>Delete</button>
+                                    <Link to={`update/${data.id}`} className="btn btn-primary">Update</Link>
+                                    <button className="btn btn-danger ms-2" onClick={e => handleDelete(data.id)}>Delete</button>
                                 </td>
                             </tr>
                        ))
