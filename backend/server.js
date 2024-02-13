@@ -23,7 +23,7 @@ app.get("/",(req, res) => {
    db.query(sql, (err,data) => {
     if(err) return res.json("Error");
 
-    console.log(`Data is === ${data}`);
+    console.log(`Data is === ${JSON.stringify(data)}`)
     return res.json(data);
    });
 });

@@ -12,7 +12,7 @@ function UpdateEmployee() {
     function SubmitForm(event) {
         event.preventDefault();
         
-        axios.put('http://localhost:8081/update/'+id, {name, email})
+        axios.put('http://localhost:8081/update/'+id, {name, email,id})
         .then(res => {
             console.log(res);
             navigate('/');
