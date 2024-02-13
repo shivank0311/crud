@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { StorageConnection } = require("./db");
+const { getMysqlConnection } = require("./db");
 
 
 const app = express();
@@ -24,7 +24,6 @@ app.get("/",(req, res) => {
 //INSERTING DATA
 
 app.post('/create', (req, res) => {
-    db.connect();
     const sql = "INSERT INTO employee SET ?";
     
     const values = {
@@ -41,7 +40,6 @@ app.post('/create', (req, res) => {
 //UPDATING DATA
 
 app.put('/update/:id', (req, res) => {    
-    db.connect();
     const sql = 'UPDATE employee SET Name = ? ,Email = ? Where ID = ?';
     var values = {
         name:req.body.name,
@@ -64,7 +62,6 @@ app.put('/update/:id', (req, res) => {
 //DELETION OF THE DATA
 
 app.delete('/employee/:id', (req, res) => {
-        db.connect();
         const sql = 'DELETE FROM employee where ID = ?';
         const id = req.params.id;
     
@@ -74,7 +71,7 @@ app.delete('/employee/:id', (req, res) => {
          })
         })
 
-var db = StorageConnection.getMysqlConnection();
+var db = getMysqlConnection();
 app.listen(8081, () => {
     console.log("listening........");
 })

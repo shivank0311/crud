@@ -1,8 +1,10 @@
 const mysql = require("mysql");
 
-export class StorageConnection {
 
-    static getMysqlConnection() {
+let DB_CON = null;
+
+function getMysqlConnection() {
+    if (DB_CON !== null) {
         const db = mysql.createConnection({
             host: "localhost",
             port:3306,
@@ -10,7 +12,7 @@ export class StorageConnection {
             password: "Shubham1997@",
             database: "crud"
         })
-
-        return db.connect();
+        DB_CON = db.connect();
     }
+    return DB_CON;
 }
