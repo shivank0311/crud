@@ -1,24 +1,17 @@
 const express = require("express");
 const cors = require("cors");
-const mysql = require("mysql");
+const { StorageConnection } = require("./db");
 
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const db = mysql.createConnection({
-    host: "localhost",
-    port:3306,
-    user: "root",
-    password: "Shubham1997@",
-    database: "crud"
-})
+
 
 
 
 app.get("/",(req, res) => {
-    db.connect();
    const sql = "SELECT * FROM employee";
    db.query(sql, (err,data) => {
     if(err) return res.json("Error");
@@ -80,7 +73,8 @@ app.delete('/employee/:id', (req, res) => {
              return res.json(data);
          })
         })
-        
+
+var db = StorageConnection.getMysqlConnection();
 app.listen(8081, () => {
     console.log("listening........");
 })
