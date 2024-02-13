@@ -15,8 +15,11 @@ const db = mysql.createConnection({
     database: "crud"
 })
 
+
+
 app.get("/",(req, res) => {
-   const sql = "SELECT * FROM student";
+    db.connect();
+   const sql = "SELECT * FROM employee";
    db.query(sql, (err,data) => {
     if(err) return res.json("Error");
     return res.json(data);
@@ -26,14 +29,16 @@ app.get("/",(req, res) => {
 //INSERTING DATA
 
 app.post('/create', (req, res) => {
-    const sql = "INSERT INTO student SET ?";
+    db.connect();
+    const sql = "INSERT INTO employee SET ?";
     
     const values = {
+        
         name:req.body.name,
         email:req.body.email
         }
      db.query(sql, values, (err, data) => {
-         if(err) return res.json("error");        
+         if(err) return res.json(err.message);        
          return res.json(data);
      })
     })
@@ -41,8 +46,8 @@ app.post('/create', (req, res) => {
 //UPDATING DATA
 
 app.put('/update/:id', (req, res) => {    
-    
-    const sql = 'UPDATE student SET Name = ? ,Email = ? Where ID = ?';
+    db.connect();
+    const sql = 'UPDATE employee SET Name = ? ,Email = ? Where ID = ?';
     var values = {
         name:req.body.name,
         email:req.body.email
@@ -63,8 +68,9 @@ app.put('/update/:id', (req, res) => {
 
 //DELETION OF THE DATA
 
-app.delete('/student/:id', (req, res) => {
-        const sql = 'DELETE FROM student where ID = ?';
+app.delete('/employee/:id', (req, res) => {
+        db.connect();
+        const sql = 'DELETE FROM employee where ID = ?';
         const id = req.params.id;
     
          db.query(sql, [id], (err, data) => {

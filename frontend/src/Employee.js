@@ -3,19 +3,19 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 
-function Student() {
-    const [student, setStudent]= useState([])
+function Employee() {
+    const [employee, setEmployee]= useState([])
 
     useEffect(()=> {
         axios.get('http://localhost:8081/',)
-        .then(res => setStudent(res.data))
+        .then(res => setEmployee(res.data))
         
         .catch(err => console.log(err));
     }, []);
 
     const handleDelete = async(id) => {
         try{
-            await axios.delete('http://localhost:8081/student/'+id);
+            await axios.delete('http://localhost:8081/employee/'+id);
             window.location.reload();
         }catch(err){
             console.log(err);
@@ -36,8 +36,9 @@ function Student() {
                 </thead>
                 <tbody>
                     {
-                        
-                       student.map((data, index) => (
+                       
+                        employee.map((data, index) => (
+                            
                             <tr key={index}>
                                 
                                 <td>{data.Name}</td>
@@ -56,4 +57,4 @@ function Student() {
   );
 }
 
-export default Student
+export default Employee
