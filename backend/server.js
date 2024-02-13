@@ -7,6 +7,8 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/",(req, res) => {
+    const db = getMysqlConnection();
+
    const sql = "SELECT * FROM employee";
    db.query(sql, (err,data) => {
     if(err) return res.json("Error");
@@ -19,6 +21,8 @@ app.get("/",(req, res) => {
 //INSERTING DATA
 
 app.post('/create', (req, res) => {
+    const db = getMysqlConnection();
+
     const sql = "INSERT INTO employee SET ?";
     
     const values = {
@@ -34,7 +38,9 @@ app.post('/create', (req, res) => {
 
 //UPDATING DATA
 
-app.put('/update/:id', (req, res) => {    
+app.put('/update/:id', (req, res) => { 
+    const db = getMysqlConnection();
+
     const sql = 'UPDATE employee SET Name = ? ,Email = ? Where ID = ?';
     var values = {
         name:req.body.name,
@@ -57,6 +63,7 @@ app.put('/update/:id', (req, res) => {
 //DELETION OF THE DATA
 
 app.delete('/employee/:id', (req, res) => {
+        const db = getMysqlConnection();
         const sql = 'DELETE FROM employee where ID = ?';
         const id = req.params.id;
     
@@ -69,8 +76,8 @@ app.delete('/employee/:id', (req, res) => {
 
 let DB_CON = null;
 async function  getMysqlConnection() {
-    if (DB_CON !== null) {
-        const db = await mysql.createConnection({
+    if (DB_CON === null) {
+        const db = mysql.createConnection({
             host: "localhost",
             port:3306,
             user: "root",
@@ -82,7 +89,6 @@ async function  getMysqlConnection() {
     return DB_CON;
 }
 
-var db = await getMysqlConnection();
 app.listen(8081, () => {
     console.log("listening........");
 })
