@@ -68,9 +68,9 @@ app.delete('/employee/:id', (req, res) => {
 
 
 let DB_CON = null;
-function getMysqlConnection() {
+async function  getMysqlConnection() {
     if (DB_CON !== null) {
-        const db = mysql.createConnection({
+        const db = await mysql.createConnection({
             host: "localhost",
             port:3306,
             user: "root",
@@ -82,7 +82,7 @@ function getMysqlConnection() {
     return DB_CON;
 }
 
-var db = getMysqlConnection();
+var db = await getMysqlConnection();
 app.listen(8081, () => {
     console.log("listening........");
 })
